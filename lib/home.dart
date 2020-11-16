@@ -8,7 +8,23 @@ class Home extends StatelessWidget {
 
       appBar: AppBar(
 
-        title: Text('実績データ'),
+        leading: Icon(Icons.menu),
+
+        title: Text('実績グラフ'),
+        actions: [
+          FlatButton(
+            child: Icon(Icons.add_alert),
+            onPressed: (){
+
+            },
+          ),
+          FlatButton(
+            child: Icon(Icons.person),
+            onPressed: (){
+
+            },
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -21,12 +37,11 @@ class Home extends StatelessWidget {
                   labelText: '体重を入力してください'
               ),
             ),
-            Text("実績データ"),
             Text( '2020年7月の体重の変化' ),
             Expanded(flex: 1,
                 child: Card(
                     child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         child: SimpleTimeSeriesChart.withSampleData()
                     )
                 )

@@ -13,6 +13,7 @@ class GalleryApp extends StatefulWidget {
 
   @override
   GalleryAppState createState() => new GalleryAppState();
+
 }
 
 /// The main gallery app state.
@@ -25,6 +26,13 @@ class GalleryAppState extends State<GalleryApp> {
   Widget build(BuildContext context) {
     return new MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: new ThemeData(
+          primarySwatch: Colors.pink,
+          primaryColor: const Color(0xFFe91e63),
+          accentColor: const Color(0xFFe91e63),
+          canvasColor: const Color(0xFFfafafa),
+        ),
         home: new Home());
+
   }
 }
