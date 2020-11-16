@@ -6,26 +6,7 @@ class Graph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(
 
-        leading: Icon(Icons.menu),
-
-        title: Text('実績グラフ'),
-        actions: [
-          FlatButton(
-            child: Icon(Icons.add_alert),
-            onPressed: (){
-
-            },
-          ),
-          FlatButton(
-            child: Icon(Icons.person),
-            onPressed: (){
-
-            },
-          ),
-        ],
-      ),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(

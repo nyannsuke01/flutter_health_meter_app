@@ -24,7 +24,22 @@ class _NavState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bottom Navigation Bar Tutorial'),
+        leading: Icon(Icons.menu),
+        title: Text('実績グラフ'),
+        actions: [
+          FlatButton(
+            child: Icon(Icons.add_alert),
+            onPressed: (){
+
+            },
+          ),
+          FlatButton(
+            child: Icon(Icons.person),
+            onPressed: (){
+
+            },
+          ),
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
