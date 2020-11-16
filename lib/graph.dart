@@ -1,7 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Graph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
