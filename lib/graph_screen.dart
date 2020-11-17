@@ -1,52 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_app/components/side_drawer.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: Text('ホーム'),
-        actions: [
-          FlatButton(
-            child: Icon(Icons.add_alert),
-            onPressed: (){
 
-            },
-          ),
-          FlatButton(
-            child: Icon(Icons.person),
-            onPressed: (){
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
 
-            },
-          ),
-        ],
-      ),
-      //drawer
-      // body:
-      body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(100, (index) {
-          return Center(
-            child: Text(
-              'Item $index',
-              style: Theme.of(context).textTheme.headline5,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  labelText: '体重を入力してください'
+              ),
             ),
-          );
-        }),
-      ),
-      drawer: SideDrawer(),
+            Text( '2020年7月の体重の変化' ),
+            Expanded(flex: 1,
+                child: Card(
+                    child: Container(
+                        padding: EdgeInsets.all(5),
+                        child: SimpleTimeSeriesChart.withSampleData()
+                    )
+                )
+            ),
 
-      // new Slider(key: null, onChanged: sliderChanged, value:0.35,),
+          ],
+        ),
+      ),
     );
   }
-  // void sliderChanged(double value) {}
 }
-
 
 class SimpleTimeSeriesChart extends StatelessWidget {
   final List<charts.Series> seriesList;

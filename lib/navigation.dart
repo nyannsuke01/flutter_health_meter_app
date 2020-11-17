@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'message.dart';
+import 'package:flutter_app/graph.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -10,8 +12,8 @@ class _NavState extends State<Navigation> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Text('Messgaes Screen'),
-    Text('Profile Screen'),
+    Message(),
+    Graph(),
   ];
 
   void _onItemTap(int index) {
@@ -23,24 +25,6 @@ class _NavState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.menu),
-        title: Text('実績グラフ'),
-        actions: [
-          FlatButton(
-            child: Icon(Icons.add_alert),
-            onPressed: (){
-
-            },
-          ),
-          FlatButton(
-            child: Icon(Icons.person),
-            onPressed: (){
-
-            },
-          ),
-        ],
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -51,7 +35,7 @@ class _NavState extends State<Navigation> {
               Icons.home,
             ),
             title: Text(
-              'Home',
+              'ホーム',
             ),
           ),
           BottomNavigationBarItem(
@@ -59,15 +43,15 @@ class _NavState extends State<Navigation> {
               Icons.message,
             ),
             title: Text(
-              'Messages',
+              'メッセージ',
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.timeline,
             ),
             title: Text(
-              'Profile',
+              '実績データ',
             ),
           ),
         ],
