@@ -10,13 +10,20 @@ class Graph extends StatelessWidget {
         title: Text('実績グラフ'),
         actions: [
           FlatButton(
-            child: Icon(Icons.add_alert),
+
+            child: Icon(
+              Icons.add_alert,
+              color: Colors.white,
+            ),
             onPressed: (){
 
             },
           ),
           FlatButton(
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
             onPressed: (){
 
             },

@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'Bottom Navigation Bar Tutorial',
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
-        primarySwatch: Colors.pink,
-        primaryColor: const Color(0xFFe91e63),
-        accentColor: const Color(0xFFe91e63),
+        primarySwatch: Colors.green,
+        primaryColor: Colors.green,
+        accentColor: Colors.green,
         canvasColor: const Color(0xFFfafafa),
         primaryIconTheme: IconThemeData(color: Colors.white),
       ),

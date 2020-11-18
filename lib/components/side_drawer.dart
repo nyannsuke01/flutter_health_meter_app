@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SideDrawer extends StatefulWidget {
@@ -29,7 +28,7 @@ class _State extends State<SideDrawer> {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.pink,
+                  color: Colors.green,
                 ),
               ),
               ListTile(

@@ -7,39 +7,97 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+
         title: Text('ホーム'),
         actions: [
           FlatButton(
-            child: Icon(Icons.add_alert),
-            onPressed: (){
 
+            child: Icon(
+                Icons.add_alert,
+                color: Colors.white,
+            ),
+            onPressed: (){
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.add_alert),
+                applicationName: "通知画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "通知設定画面へ移動することを想定しています",
+              );
             },
           ),
           FlatButton(
-            child: Icon(Icons.person),
+            child: Icon(
+                Icons.person,
+                color: Colors.white,
+            ),
             onPressed: (){
-
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.person),
+                applicationName: "ユーザー画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "対象ユーザー様の情報を表示するページへ遷移します",
+              );
             },
           ),
         ],
       ),
       //drawer
       // body:
-      body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(100, (index) {
-          return Center(
-            child: Text(
-              'Item $index',
-              style: Theme.of(context).textTheme.headline5,
+      body: MyStatelessWidget(),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                'メニュー',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
             ),
-          );
-        }),
+            ListTile(
+              title: Text('食事の登録'),
+              onTap: () {
+
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('食事データ確認'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('計測項目登録'),
+              onTap: () {
+
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('計測項目測定'),
+              onTap: () {
+
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('コメント一覧'),
+              onTap: () {
+
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
-      drawer: SideDrawer(),
 
       // new Slider(key: null, onChanged: sliderChanged, value:0.35,),
     );
@@ -47,56 +105,40 @@ class Home extends StatelessWidget {
   // void sliderChanged(double value) {}
 }
 
-
-class SimpleTimeSeriesChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  SimpleTimeSeriesChart(this.seriesList, {this.animate});
-
-  factory SimpleTimeSeriesChart.withSampleData() {
-    return new SimpleTimeSeriesChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
+/// This is the stateless widget that the main application instantiates.
+class MyStatelessWidget extends StatelessWidget {
+  MyStatelessWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart(
-      seriesList,
-      animate: animate,
-      dateTimeFactory: const charts.LocalDateTimeFactory(),
+    return Center(
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const ListTile(
+              leading: Icon(Icons.album),
+              title: Text('The Enchanted Nightingale'),
+              subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                  child: const Text('BUY TICKETS'),
+                  onPressed: () {/* ... */},
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('LISTEN'),
+                  onPressed: () {/* ... */},
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
-
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      new TimeSeriesSales(new DateTime(2020, 7, 1), 69),
-      new TimeSeriesSales(new DateTime(2020, 7, 4), 67),
-      new TimeSeriesSales(new DateTime(2020, 7, 7), 68),
-      new TimeSeriesSales(new DateTime(2020, 7, 10), 65),
-      new TimeSeriesSales(new DateTime(2020, 7, 13), 64),
-      new TimeSeriesSales(new DateTime(2020, 7, 16), 60),
-      new TimeSeriesSales(new DateTime(2020, 7, 19), 55),
-    ];
-
-    return [
-      new charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
-  }
-}
-
-class TimeSeriesSales {
-  final DateTime time;
-  final int sales;
-
-  TimeSeriesSales(this.time, this.sales);
 }
