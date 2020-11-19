@@ -1,11 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'components/side_drawer.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
 
+        title: Text('ホーム'),
+        actions: [
+          FlatButton(
+
+            child: Icon(
+              Icons.add_alert,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.add_alert),
+                applicationName: "通知画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "通知設定画面へ移動することを想定しています",
+              );
+            },
+          ),
+          FlatButton(
+            child: Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.person),
+                applicationName: "ユーザー画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "対象ユーザー様の情報を表示するページへ遷移します",
+              );
+            },
+          ),
+        ],
+      ),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -30,6 +67,7 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SlideDrawer(),
     );
   }
 }

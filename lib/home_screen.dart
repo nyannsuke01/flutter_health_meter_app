@@ -45,59 +45,8 @@ class Home extends StatelessWidget {
       ),
       //drawer
       // body:
-      body: MyStatelessWidget(),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'メニュー',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
-            ListTile(
-              title: Text('食事の登録'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('食事データ確認'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('計測項目登録'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('計測項目測定'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('コメント一覧'),
-              onTap: () {
-
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      body: HomeWidget(),
+      drawer: SlideDrawer(),
 
       // new Slider(key: null, onChanged: sliderChanged, value:0.35,),
     );
@@ -106,39 +55,102 @@ class Home extends StatelessWidget {
 }
 
 /// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+class HomeWidget extends StatelessWidget {
+  HomeWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    return Container(
+        margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.album),
-              title: Text('The Enchanted Nightingale'),
-              subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+            Card(
+              margin: const EdgeInsets.all(10.0),
+              child: Container(
+                  margin: const EdgeInsets.all(10.0),
+                  width: 150,
+                  height: 150,
+                  child: Text(
+                    '今月の体重進捗',
+                    style: TextStyle(fontSize: 18),
+                  )
+
+              ),
+
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: const Text('BUY TICKETS'),
-                  onPressed: () {/* ... */},
-                ),
-                const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('LISTEN'),
-                  onPressed: () {/* ... */},
-                ),
-                const SizedBox(width: 8),
-              ],
+            Card(
+              margin: const EdgeInsets.all(10.0),
+              child: Container(
+                  margin: const EdgeInsets.all(10.0),
+                  width: 150,
+                  height: 150,
+
+                  child: Text(
+                    '今月のトラッキング',
+                    style: TextStyle(fontSize: 15),
+                  )
+              ),
             ),
           ],
-        ),
-      ),
+        )
+
     );
   }
 }
+// return Card(
+//       elevation: 8.0,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(8.0),
+//       ),
+//
+//       child: Card(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: <Widget>[
+//             const ListTile(
+//               title: Text('筋トレ'),
+//               leading: Icon(Icons.album),
+//               subtitle: Text('30分'),
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: <Widget>[
+//                 RaisedButton(
+//                   child: const Text('✔︎'),
+//                   textColor: Colors.green,
+//                   color: Colors.white,
+//                   shape: const CircleBorder(
+//                     side: BorderSide(
+//                       color: Colors.green,
+//                       width: 5,
+//                       style: BorderStyle.solid,
+//                     ),
+//                   ),
+//                   onPressed: () {
+//                   },
+//                   highlightElevation: 16,
+//                   highlightColor: Colors.green,
+//                   onHighlightChanged: (value) {},
+//                 ),
+//                 RaisedButton(
+//                   child: const Text('✖️'),
+//                   textColor: Colors.green,
+//                   color: Colors.white,
+//                   shape: const CircleBorder(
+//                     side: BorderSide(
+//                       color: Colors.green,
+//                       width: 5,
+//                       style: BorderStyle.solid,
+//                     ),
+//                   ),
+//                   onPressed: () {},
+//                 ),
+//                 const SizedBox(width: 8),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
