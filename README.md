@@ -1,4 +1,4 @@
-# fflutter_health_meter_app
+# flutter_health_meter_app
 Flutterを使用した健康管理アプリ　（iOS,Android対応）
 フレームの作成
 BMI計算
