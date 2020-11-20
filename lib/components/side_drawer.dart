@@ -15,7 +15,7 @@ class SlideDrawer extends StatelessWidget {
               ),
             ),
             decoration: BoxDecoration(
-              color: Colors.green,
+              color: Colors.lightGreen,
             ),
           ),
           ListTile(

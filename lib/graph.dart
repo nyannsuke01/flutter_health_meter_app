@@ -9,7 +9,9 @@ class Graph extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
 
-        title: Text('実績データ'),
+        title: Text('実績データ',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           FlatButton(
 

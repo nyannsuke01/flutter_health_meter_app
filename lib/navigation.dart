@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'home_screen.dart';
 import 'message.dart';
 import 'package:flutter_app/graph.dart';
@@ -11,7 +12,7 @@ class Navigation extends StatefulWidget {
 class _NavState extends State<Navigation> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    Home(),
+    HomeScreen(),
     Message(),
     Graph(),
   ];

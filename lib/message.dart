@@ -12,7 +12,8 @@ class Message extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
 
-        title: Text('メッセージ'),
+        title: Text('メッセージ',
+            style: TextStyle(color: Colors.white),),
         actions: [
           FlatButton(
 

@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_app/components/side_drawer.dart';
+import 'package:flutter_app/results_page.dart';
+import 'calculator_brain.dart';
+import 'components/bottom_button.dart';
+import 'components/icon_content.dart';
+import 'components/reusable_card.dart';
+import 'components/round_icon_button.dart';
+import 'components/side_drawer.dart';
+import 'constants.dart';
 
-class Home extends StatelessWidget {
+enum Gender {
+  male,
+  female,
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Gender selectedGender;
+  int height = 180;
+  int weight = 60;
+  int age = 20;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
 
-        title: Text('ホーム'),
+        title: Text('ホーム',
+          style: TextStyle(color: Colors.white),),
         actions: [
           FlatButton(
 
             child: Icon(
-                Icons.add_alert,
-                color: Colors.white,
+              Icons.add_alert,
+              color: Colors.white,
             ),
             onPressed: (){
               showAboutDialog(
@@ -28,8 +50,8 @@ class Home extends StatelessWidget {
           ),
           FlatButton(
             child: Icon(
-                Icons.person,
-                color: Colors.white,
+              Icons.person,
+              color: Colors.white,
             ),
             onPressed: (){
               showAboutDialog(
@@ -43,114 +65,209 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      //drawer
-      // body:
-      body: HomeWidget(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ReusableCard(
+                      onPress: () {
+                        setState(() {
+                          selectedGender = Gender.male;
+                        });
+                      },
+                      colour: selectedGender == Gender.male
+                          ? kActiveCardColour
+                          : kInactiveCardColour,
+                      cardChild: IconContent(
+                        icon: Icons.person,
+                        label: 'MALE',
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ReusableCard(
+                      onPress: () {
+                        setState(() {
+                          selectedGender = Gender.female;
+                        });
+                      },
+                      colour: selectedGender == Gender.female
+                          ? kActiveCardColour
+                          : kInactiveCardColour,
+                      cardChild: IconContent(
+                        icon: Icons.person,
+                        label: 'FEMALE',
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+          Expanded(
+            child: ReusableCard(
+              colour: kActiveCardColour,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: kLabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLabelTextStyle,
+                      )
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      inactiveTrackColor: Colors.black12,
+                      activeTrackColor: Colors.pink,
+                      thumbColor: Color(0xFFEB1555),
+                      overlayColor: Color(0x29EB1555),
+                      thumbShape:
+                      RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape:
+                      RoundSliderOverlayShape(overlayRadius: 30.0),
+                    ),
+                    child: Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WHEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                                icon: Icons.minimize,
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                }),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: Icons.add,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: Icons.minimize,
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    age--;
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                                icon: Icons.add,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                })
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          BottomButton(
+            buttonTitle: '計算する',
+
+            onTap: () {
+              CalculatorBrain calc =
+              CalculatorBrain(height: height, weight: weight);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       drawer: SlideDrawer(),
-
-      // new Slider(key: null, onChanged: sliderChanged, value:0.35,),
-    );
-  }
-  // void sliderChanged(double value) {}
-}
-
-/// This is the stateless widget that the main application instantiates.
-class HomeWidget extends StatelessWidget {
-  HomeWidget({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              margin: const EdgeInsets.all(10.0),
-              child: Container(
-                  margin: const EdgeInsets.all(10.0),
-                  width: 150,
-                  height: 150,
-                  child: Text(
-                    '今月の体重進捗',
-                    style: TextStyle(fontSize: 18),
-                  )
-
-              ),
-
-            ),
-            Card(
-              margin: const EdgeInsets.all(10.0),
-              child: Container(
-                  margin: const EdgeInsets.all(10.0),
-                  width: 150,
-                  height: 150,
-
-                  child: Text(
-                    '今月のトラッキング',
-                    style: TextStyle(fontSize: 15),
-                  )
-              ),
-            ),
-          ],
-        )
-
     );
   }
 }
-// return Card(
-//       elevation: 8.0,
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(8.0),
-//       ),
-//
-//       child: Card(
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: <Widget>[
-//             const ListTile(
-//               title: Text('筋トレ'),
-//               leading: Icon(Icons.album),
-//               subtitle: Text('30分'),
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               children: <Widget>[
-//                 RaisedButton(
-//                   child: const Text('✔︎'),
-//                   textColor: Colors.green,
-//                   color: Colors.white,
-//                   shape: const CircleBorder(
-//                     side: BorderSide(
-//                       color: Colors.green,
-//                       width: 5,
-//                       style: BorderStyle.solid,
-//                     ),
-//                   ),
-//                   onPressed: () {
-//                   },
-//                   highlightElevation: 16,
-//                   highlightColor: Colors.green,
-//                   onHighlightChanged: (value) {},
-//                 ),
-//                 RaisedButton(
-//                   child: const Text('✖️'),
-//                   textColor: Colors.green,
-//                   color: Colors.white,
-//                   shape: const CircleBorder(
-//                     side: BorderSide(
-//                       color: Colors.green,
-//                       width: 5,
-//                       style: BorderStyle.solid,
-//                     ),
-//                   ),
-//                   onPressed: () {},
-//                 ),
-//                 const SizedBox(width: 8),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
