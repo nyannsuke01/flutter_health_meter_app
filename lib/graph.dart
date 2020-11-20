@@ -1,14 +1,50 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+import 'components/side_drawer.dart';
+
+class Graph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
 
-      appBar: AppBar(
+        title: Text('実績データ',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          FlatButton(
 
-        title: Text('実績データ'),
+            child: Icon(
+              Icons.add_alert,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.add_alert),
+                applicationName: "通知画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "通知設定画面へ移動することを想定しています",
+              );
+            },
+          ),
+          FlatButton(
+            child: Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+            onPressed: (){
+              showAboutDialog(
+                context: context,
+                applicationIcon: Icon(Icons.person),
+                applicationName: "ユーザー画面",
+                applicationVersion: "2.0.1",
+                applicationLegalese: "対象ユーザー様の情報を表示するページへ遷移します",
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -21,12 +57,11 @@ class Home extends StatelessWidget {
                   labelText: '体重を入力してください'
               ),
             ),
-            Text("実績データ"),
             Text( '2020年7月の体重の変化' ),
             Expanded(flex: 1,
                 child: Card(
                     child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(5),
                         child: SimpleTimeSeriesChart.withSampleData()
                     )
                 )
@@ -35,6 +70,7 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SlideDrawer(),
     );
   }
 }

@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:charts_flutter/flutter.dart' as charts;
-
-import 'home.dart';
+import 'navigation.dart';
 
 void main() {
-  runApp(new GalleryApp());
+  runApp(MyApp());
 }
 
-class GalleryApp extends StatefulWidget {
-  GalleryApp({Key key}) : super(key: key);
-
-  @override
-  GalleryAppState createState() => new GalleryAppState();
-}
-
-/// The main gallery app state.
-///
-/// Controls performance overlay, and instantiates a [Home] widget.
-class GalleryAppState extends State<GalleryApp> {
-  // Initialize app settings from the default configuration.
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: new Home());
+    return MaterialApp(
+      title: 'Bottom Navigation Bar Tutorial',
+      debugShowCheckedModeBanner: false,
+      theme: new ThemeData(
+        primarySwatch: Colors.lightGreen,
+        primaryColor: Colors.lightGreen,
+        accentColor: Colors.lightGreen,
+        canvasColor: const Color(0xFFfafafa),
+        primaryIconTheme: IconThemeData(color: Colors.white),
+      ),
+      home: Navigation(),
+    );
   }
 }
