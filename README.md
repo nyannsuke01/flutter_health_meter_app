@@ -10,7 +10,8 @@ Flutterを使用した健康管理アプリ　（iOS,Android対応）
 
 ○美しいUIと高い生産性の両立
 
-・公式ライブラリのUIコンポーネントが豊富なので、柔軟なデザインに対応できる　https://flutter.dev/docs/development/ui/widgets/basics
+・公式ライブラリのUIコンポーネントが豊富なので、柔軟なデザインに対応できる　https://flutter.dev/docs/development/ui/widgets/basics https://github.com/nyannsuke01/FlutterNewsFeed
+
 ・それによりUI実装のリソースを削減、高い生産性を実現できる
 
 ---　　Flutterの弱み  ---
