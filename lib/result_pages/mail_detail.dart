@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'components/side_drawer.dart';
+import '../components/side_drawer.dart';
 
 class MailDetail extends StatelessWidget {
 

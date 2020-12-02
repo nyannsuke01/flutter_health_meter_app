@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/mail_detail.dart';
-import 'components/side_drawer.dart';
+import 'package:flutter_app/result_pages/mail_detail.dart';
+import '../components/side_drawer.dart';
 
 class Message extends StatelessWidget {
   int _counter = 0;

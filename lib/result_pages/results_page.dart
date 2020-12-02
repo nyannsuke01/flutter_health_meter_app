@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'components/bottom_button.dart';
-import 'components/reusable_card.dart';
-import 'constants.dart';
+import '../components/bottom_button.dart';
+import '../components/reusable_card.dart';
+import '../constants.dart';
 
 class ResultsPage extends StatelessWidget {
   ResultsPage(

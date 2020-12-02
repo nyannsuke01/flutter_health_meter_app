@@ -1,7 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-import 'components/side_drawer.dart';
+import '../components/side_drawer.dart';
 
 class Graph extends StatelessWidget {
   @override

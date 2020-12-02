@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
-import 'message.dart';
-import 'package:flutter_app/graph.dart';
+import 'pages/home_screen.dart';
+import 'pages/message.dart';
+import 'package:flutter_app/pages/graph.dart';
 
 class Navigation extends StatefulWidget {
   @override
