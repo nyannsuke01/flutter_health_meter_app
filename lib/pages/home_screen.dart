@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/result_pages/results_page.dart';
-import '../calculator_brain.dart';
-import '../components/bottom_button.dart';
-import '../components/icon_content.dart';
-import '../components/reusable_card.dart';
-import '../components/round_icon_button.dart';
-import '../components/side_drawer.dart';
-import '../constants.dart';
+import 'package:flutter_app/components/bar_chart.dart';
+import 'package:flutter_app/components/side_drawer.dart';
+import 'package:flutter_app/data/data.dart';
+import 'package:flutter_app/helpers/color_helper.dart';
+import 'package:flutter_app/models/category_model.dart';
+import 'package:flutter_app/models/expense_model.dart';
+import 'package:flutter_app/screens/category_screen.dart';
 
-enum Gender {
-  male,
-  female,
-}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,255 +14,180 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Gender selectedGender;
-  int height = 180;
-  int weight = 60;
-  int age = 20;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-
-        title: Text('ホーム',
-          style: TextStyle(color: Colors.white),),
-        actions: [
-          FlatButton(
-
-            child: Icon(
-              Icons.add_alert,
-              color: Colors.white,
-            ),
-            onPressed: (){
-              showAboutDialog(
-                context: context,
-                applicationIcon: Icon(Icons.add_alert),
-                applicationName: "通知画面",
-                applicationVersion: "2.0.1",
-                applicationLegalese: "通知設定画面へ移動することを想定しています",
-              );
-            },
-          ),
-          FlatButton(
-            child: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-            onPressed: (){
-              showAboutDialog(
-                context: context,
-                applicationIcon: Icon(Icons.person),
-                applicationName: "ユーザー画面",
-                applicationVersion: "2.0.1",
-                applicationLegalese: "対象ユーザー様の情報を表示するページへ遷移します",
-              );
-            },
-          ),
-        ],
+  _buildCategory(Category category, double totalAmountSpent) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => CategoryScreen(category: category),
+        ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ReusableCard(
-                      onPress: () {
-                        setState(() {
-                          selectedGender = Gender.male;
-                        });
-                      },
-                      colour: selectedGender == Gender.male
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
-                      cardChild: IconContent(
-                        icon: Icons.person,
-                        label: 'MALE',
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ReusableCard(
-                      onPress: () {
-                        setState(() {
-                          selectedGender = Gender.female;
-                        });
-                      },
-                      colour: selectedGender == Gender.female
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
-                      cardChild: IconContent(
-                        icon: Icons.person,
-                        label: 'FEMALE',
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-          Expanded(
-            child: ReusableCard(
-              colour: kActiveCardColour,
-              cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'HEIGHT',
-                    style: kLabelTextStyle,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: <Widget>[
-                      Text(
-                        height.toString(),
-                        style: kNumberTextStyle,
-                      ),
-                      Text(
-                        'cm',
-                        style: kLabelTextStyle,
-                      )
-                    ],
-                  ),
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      inactiveTrackColor: Colors.black12,
-                      activeTrackColor: Colors.pink,
-                      thumbColor: Color(0xFFEB1555),
-                      overlayColor: Color(0x29EB1555),
-                      thumbShape:
-                      RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape:
-                      RoundSliderOverlayShape(overlayRadius: 30.0),
-                    ),
-                    child: Slider(
-                      value: height.toDouble(),
-                      min: 120.0,
-                      max: 220.0,
-                      onChanged: (double newValue) {
-                        setState(() {
-                          height = newValue.round();
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: EdgeInsets.all(20.0),
+        height: 100.0,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0, 2),
+              blurRadius: 6.0,
             ),
-          ),
-          Expanded(
-            child: Row(
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(
-                  child: ReusableCard(
-                    colour: kActiveCardColour,
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'WHEIGHT',
-                          style: kLabelTextStyle,
-                        ),
-                        Text(
-                          weight.toString(),
-                          style: kNumberTextStyle,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            RoundIconButton(
-                                icon: Icons.minimize,
-                                onPressed: () {
-                                  setState(() {
-                                    weight--;
-                                  });
-                                }),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            RoundIconButton(
-                              icon: Icons.add,
-                              onPressed: () {
-                                setState(() {
-                                  weight++;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                Text(
+                  category.name,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Expanded(
-                  child: ReusableCard(
-                    colour: kActiveCardColour,
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'AGE',
-                          style: kLabelTextStyle,
-                        ),
-                        Text(
-                          age.toString(),
-                          style: kNumberTextStyle,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            RoundIconButton(
-                              icon: Icons.minimize,
-                              onPressed: () {
-                                setState(
-                                      () {
-                                    age--;
-                                  },
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            RoundIconButton(
-                                icon: Icons.add,
-                                onPressed: () {
-                                  setState(() {
-                                    age++;
-                                  });
-                                })
-                          ],
-                        )
-                      ],
-                    ),
+                Text(
+                  '\$${(category.maxAmount - totalAmountSpent).toStringAsFixed(2)} / \$${category.maxAmount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-          ),
-          BottomButton(
-            buttonTitle: '計算する',
+            SizedBox(height: 10.0),
+            LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double maxBarWidth = constraints.maxWidth;
+                final double percent = (category.maxAmount - totalAmountSpent) /
+                    category.maxAmount;
+                double barWidth = percent * maxBarWidth;
 
-            onTap: () {
-              CalculatorBrain calc =
-              CalculatorBrain(height: height, weight: weight);
+                if (barWidth < 0) {
+                  barWidth = 0;
+                }
+                return Stack(
+                  children: <Widget>[
+                    Container(
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    ),
+                    Container(
+                      height: 20.0,
+                      width: barWidth,
+                      decoration: BoxDecoration(
+                        color: getColor(context, percent),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResultsPage(
-                    bmiResult: calc.calculateBMI(),
-                    resultText: calc.getResult(),
-                    interpretation: calc.getInterpretation(),
-                  ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            forceElevated: true,
+            floating: true,
+            // pinned: true,
+            expandedHeight: 100.0,
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+              iconSize: 30.0,
+              onPressed: () {
+
+              },
+            ),
+
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('ホーム',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+
+                child: Icon(
+                  Icons.add_alert,
+                  color: Colors.white,
                 ),
-              );
-            },
+                onPressed: (){
+                  showAboutDialog(
+                    context: context,
+                    applicationIcon: Icon(Icons.add_alert),
+                    applicationName: "通知画面",
+                    applicationVersion: "2.0.1",
+                    applicationLegalese: "通知設定画面へ移動することを想定しています",
+                  );
+                },
+              ),
+              FlatButton(
+                child: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+                onPressed: (){
+                  showAboutDialog(
+                    context: context,
+                    applicationIcon: Icon(Icons.person),
+                    applicationName: "ユーザー画面",
+                    applicationVersion: "2.0.1",
+                    applicationLegalese: "対象ユーザー様の情報を表示するページへ遷移します",
+                  );
+                },
+              ),
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                if (index == 0) {
+                  return Container(
+                    margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 2),
+                          blurRadius: 6.0,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: BarChart(weeklySpending),
+                  );
+                } else {
+                  final Category category = categories[index - 1];
+                  double totalAmountSpent = 0;
+                  category.expenses.forEach((Expense expense) {
+                    totalAmountSpent += expense.cost;
+                  });
+                  return _buildCategory(category, totalAmountSpent);
+                }
+              },
+              childCount: 1 + categories.length,
+            ),
           ),
         ],
       ),
-      drawer: SlideDrawer(),
     );
   }
 }

@@ -10,6 +10,7 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SlideDrawer(),
       appBar: new AppBar(
 
         title: Text('メッセージ',
@@ -68,8 +69,6 @@ class Message extends StatelessWidget {
           );
         }
       ),
-
-      drawer: SlideDrawer(),
     );
   }
 }
